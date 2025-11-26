@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>عرض ملف PDF</title>
-  <!-- ضبط العرض على شاشة الجوال -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="UTF-8" />
+  <title>مجموعة شركات العرفي – شركة القدرة لاستيراد الأدوية البيطرية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
   <style>
+    :root {
+      --green-main: #009566;
+      --green-dark: #00664a;
+      --bg-light: #f5f7fb;
+      --text-main: #0f172a;
+      --text-muted: #6b7280;
+      --radius: 18px;
+      --shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -14,44 +23,821 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      background: #fff;
       font-family: "Tajawal", system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: #ffffff;
+      color: var(--text-main);
+      scroll-behavior: smooth;
     }
 
-    /* حاوية المشاهد */
-    .viewer-wrapper {
-      position: fixed;
-      inset: 0;       /* top/right/bottom/left: 0 */
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+    body {
+      line-height: 1.8;
     }
 
-    .viewer {
-      width: 100%;
-      height: 100%;
-      border: none;
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
       display: block;
     }
 
-    /* تحسين خاص للجوالات الحديثة (100dvh) */
-    @supports (height: 100dvh) {
-      .viewer-wrapper {
-        height: 100dvh;
+    .container {
+      width: min(1180px, 94%);
+      margin: 0 auto;
+    }
+
+    /* ====== NAVBAR ====== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      gap: 12px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--green-main);
+      display: grid;
+      place-items: center;
+      background: #fff;
+    }
+
+    .logo-box span {
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--green-dark);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-text strong {
+      font-size: 16px;
+    }
+
+    .brand-text small {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover {
+      background: var(--bg-light);
+      color: var(--green-dark);
+    }
+
+    .nav-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-cta {
+        display: inline-flex;
       }
-      .viewer {
-        height: 100dvh;
+    }
+
+    .btn-primary {
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--green-main), var(--green-dark));
+      color: #fff;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 25px rgba(0, 149, 102, 0.35);
+    }
+
+    .btn-primary span.icon {
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    /* ====== HERO ====== */
+    .hero {
+      background: radial-gradient(circle at top left, #e0f6ef, #ffffff 48%, #f5f7fb);
+      padding: 26px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 26px;
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
       }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(0, 149, 102, 0.08);
+      color: var(--green-dark);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .badge span.dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green-main);
+    }
+
+    .hero h1 {
+      font-size: clamp(24px, 4vw, 32px);
+      margin: 0 0 10px;
+    }
+
+    .hero p {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .hero-meta span strong {
+      color: var(--green-dark);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn-outline {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: #fff;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: var(--text-main);
+    }
+
+    .btn-outline span.icon {
+      font-size: 16px;
+    }
+
+    .hero-image-card {
+      border-radius: 26px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: var(--shadow);
+      position: relative;
+      min-height: 220px;
+    }
+
+    .hero-image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+
+    .hero-tag {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-tag span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-main);
+    }
+
+    /* ====== SECTIONS ====== */
+    section {
+      padding: 40px 0;
+    }
+
+    section:nth-of-type(odd) {
+      background: #ffffff;
+    }
+
+    section:nth-of-type(even) {
+      background: var(--bg-light);
+    }
+
+    .section-head {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .section-head h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    @media (min-width: 900px) {
+      .about-grid {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: var(--radius);
+      padding: 20px 18px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .card p {
+      margin: 0 0 6px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(0, 149, 102, 0.08);
+      font-size: 12px;
+      color: var(--green-dark);
+    }
+
+    /* Partners grid */
+    .partners-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .partners-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1040px) {
+      .partners-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .partner-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 16px 14px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .partner-name {
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 2px;
+    }
+
+    .partner-country {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Activities */
+    .activities-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    @media (min-width: 900px) {
+      .activities-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .activity-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .activity-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      color: var(--text-main);
+    }
+
+    /* Board */
+    .board-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    @media (min-width: 640px) {
+      .board-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .member-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 14px 12px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+      font-size: 14px;
+    }
+
+    .member-role {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .contact-grid {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      }
+    }
+
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .contact-list li {
+      margin-bottom: 8px;
+    }
+
+    .contact-list span.label {
+      display: inline-block;
+      min-width: 80px;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .contact-box {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.07);
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 16px 0 22px;
+      background: #020617;
+      color: #9ca3af;
+      font-size: 12px;
+    }
+
+    footer .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
     }
   </style>
 </head>
 <body>
 
-  <div class="viewer-wrapper">
-    <!-- غيّر "file.pdf" إلى اسم ملفك أو رابط الـ PDF -->
-    <iframe class="viewer" src="file.pdf"></iframe>
-  </div>
+  <!-- ====== NAVBAR ====== -->
+  <header>
+    <div class="container nav">
+      <div class="nav-left">
+        <div class="logo-box">
+  <img src="4.jpg" alt="شعار الشركة" style="width: 100%; height: 100%; object-fit: cover;">
+</div>
 
+        <div class="brand-text">
+          <strong>مجموعة شركات العرفي</strong>
+          <small>شركة القدرة لاستيراد الأدوية البيطرية</small>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#about">من نحن</a>
+        <a href="#partners">شركاؤنا</a>
+        <a href="#activities">الأنشطة</a>
+        <a href="#board">مجلس الإدارة</a>
+        <a href="#future">رؤيتنا</a>
+        <a href="#contact">تواصل</a>
+      </nav>
+
+      <a href="#contact" class="nav-cta">
+        <button class="btn-primary">
+          <span class="icon">✉️</span>
+          تواصل معنا
+        </button>
+      </a>
+    </div>
+  </header>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge">
+          <span class="dot"></span>
+          <span>أكثر من 30 سنة خبرة في السوق الليبي</span>
+        </div>
+        <h1>ريادة في استيراد وتوزيع الأدوية البيطرية في ليبيا</h1>
+        <p>
+          تأسست مجموعة شركات العرفي سنة 1995، ومن خلال شركة القدرة استطاعت أن تكون من
+          أبرز الشركات الليبية في مجال استيراد وتوزيع الأدوية البيطرية، مع التزام دائم
+          بمعايير الجودة والاعتمادية.
+        </p>
+        <div class="hero-meta">
+          <span><strong>التخصص:</strong> أدوية ومستلزمات بيطرية</span>
+          <span><strong>المقر:</strong> ليبيا – بنغازي</span>
+        </div>
+        <div class="hero-actions">
+          <a href="file.pdf" target="_blank" class="btn-primary">
+            <span class="icon">📄</span>
+            تحميل البروفايل PDF
+          </a>
+          <a href="#partners" class="btn-outline">
+            <span class="icon">🤝</span>
+            التوكيلات والشركات العالمية
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-image-card">
+        <!-- استبدل الصورة بصورة حقيقية لمقر الشركة -->
+        <img src="2.jpg" alt="مقر مجموعة شركات العرفي">
+        <div class="hero-tag">
+          <span class="dot"></span>
+          <span>ثقة الأطباء البيطريين في ليبيا</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ABOUT ====== -->
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <h2>من نحن</h2>
+        <p>مجموعة رائدة في قطاع الأدوية البيطرية والتوكيلات العالمية</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="card">
+          <h3>نبذة عن المجموعة</h3>
+          <p>
+            انطلقت مجموعة شركات العرفي منذ منتصف التسعينيات لتغطي احتياجات السوق الليبي
+            من الأدوية البيطرية عالية الجودة. تعتمد الشركة على شبكة توزيع واسعة وتعاون
+            وثيق مع نخبة من كبريات الشركات العربية والأوروبية والعالمية.
+          </p>
+          <p>
+            تحرص الشركة على تطبيق أنظمة جودة معتمدة، وتحمل عدة شهادات دولية من بينها
+            شهادات ممارسات التصنيع الجيد وغيرها من الاعتمادات التي تعكس التزامها
+            بالمستوى المهني.
+          </p>
+          <div class="pill-list">
+            <span class="pill">استيراد وتوزيع أدوية بيطرية</span>
+            <span class="pill">توكيلات حصرية في ليبيا</span>
+            <span class="pill">التزام بمعايير الجودة العالمية</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>مجالات العمل الرئيسية</h3>
+          <p>تغطي منتجات الشركة احتياجات قطاعات متعددة من الثروة الحيوانية:</p>
+          <ul style="margin: 6px 0 0; padding-right: 18px; font-size: 14px; color: var(--text-muted);">
+            <li>الأبقار والأغنام والجمال والماشية.</li>
+            <li>الدواجن ومزارع الإنتاج الحيواني المكثف.</li>
+            <li>الحيوانات الأليفة مثل الكلاب والقطط.</li>
+            <li>الخيول والأنواع الخاصة ذات القيمة العالية.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PARTNERS / AGENCIES ====== -->
+  <section id="partners">
+    <div class="container">
+      <div class="section-head">
+        <h2>التوكيلات والشركات الممثلة</h2>
+        <p>تعاون مع نخبة من الشركات العربية والأوروبية والعالمية في قطاع الصحة الحيوانية</p>
+      </div>
+
+      <div class="partners-grid">
+        <div class="partner-card">
+          <div class="partner-name">NORBROOK</div>
+          <div class="partner-country">المملكة المتحدة</div>
+          <p>
+            شركة بريطانية رائدة في تصنيع المستحضرات البيطرية بجودة عالية وخطوط إنتاج متعددة
+            للأشكال الدوائية المختلفة، ومنتجاتها منتشرة في أكثر من 120 دولة.
+          </p>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-name">KPI</div>
+          <div class="partner-country">الولايات المتحدة الأمريكية</div>
+          <p>
+            متخصصة في الأدوية البيطرية وإضافات الأعلاف، بمعايير تصنيع معتمدة وتشكيلة واسعة
+            من المنتجات للقطاعات المختلفة.
+          </p>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-name">NEOFARMA</div>
+          <div class="partner-country">إيطاليا</div>
+          <p>
+            شركة إيطالية تركز على أدوية ومكمّلات الحيوانات، بمنتجات متنوعة للحقن والفم
+            وانتشار دولي في عدة أسواق.
+          </p>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-name">UNIVET</div>
+          <div class="partner-country">إيرلندا</div>
+          <p>
+            شركة متخصصة في أدوية الحيوانات والمكملات، بمنشآت تصنيع مرخصة وأنشطة بحث وتطوير
+            مستمرة وتصدير لعشرات الدول.
+          </p>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-name">TORNEL</div>
+          <div class="partner-country">أمريكا الشمالية</div>
+          <p>
+            منتجات تغطي المسكنات والمضادات الحيوية والعلاجات البيولوجية والفيتامينات
+            والهرمونات، مع انتشار واسع في دول عديدة.
+          </p>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-name">MOBEDCO / SPECTRA / MAPCO / MCI</div>
+          <div class="partner-country">الأردن – مصر – المغرب</div>
+          <p>
+            مجموعة من المصانع العربية المتخصصة في الأدوية واللقاحات البيطرية وإضافات الأعلاف
+            والمبيدات، بمنتجات متنوعة تلبي احتياجات السوق الليبي.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ACTIVITIES ====== -->
+  <section id="activities">
+    <div class="container">
+      <div class="section-head">
+        <h2>الرحلات والأنشطة العلمية</h2>
+        <p>استثمار مستمر في المعرفة والشراكة مع الأطباء البيطريين</p>
+      </div>
+
+      <div class="activities-grid">
+        <div class="activity-card">
+          <h3>رحلات علمية خارجية</h3>
+          <p>
+            تنظم الشركة رحلات سنوية للأطباء البيطريين المتعاونين معها للمشاركة في مؤتمرات
+            ومعارض دولية متخصصة في الطب البيطري، بهدف الاطلاع على أحدث التقنيات وتوسيع
+            شبكة العلاقات المهنية حول العالم.
+          </p>
+        </div>
+
+        <div class="activity-card">
+          <h3>فعاليات وتكريم سنوي</h3>
+          <p>
+            تقيم المجموعة حفلات سنوية كبيرة على مستوى ليبيا لتكريم الأطباء المتعاونين
+            وشركاء النجاح، وتتضمن هذه الفعاليات جوائز قيّمة مثل سيارات ومعدات حديثة وهدايا
+            تخصصية تدعم تطوير المهنة.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== BOARD ====== -->
+  <section id="board">
+    <div class="container">
+      <div class="section-head">
+        <h2>مجلس الإدارة</h2>
+        <p>قيادة ذات خبرة طويلة في مجال الأدوية البيطرية</p>
+      </div>
+
+      <div class="card">
+        <p style="margin:0 0 10px;">
+          يقود المجموعة مجلس إدارة يجمع بين الخبرة العلمية والعملية في قطاع الصحة الحيوانية،
+          ويشرف على رسم السياسات العامة وضمان استمرارية التطوير والتوسع في السوق الليبي
+          والإقليمي.
+        </p>
+
+        <div class="board-grid">
+          <div class="member-card">
+            <strong>د. محمد العرفي</strong>
+            <div class="member-role">المدير العام – General Manager</div>
+          </div>
+
+          <div class="member-card">
+            <strong>أ. مهند محمد العرفي</strong>
+            <div class="member-role">مجلس إدارة</div>
+          </div>
+
+          <div class="member-card">
+            <strong>د. معتصم محمد العرفي</strong>
+            <div class="member-role">مجلس إدارة</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FUTURE VISION ====== -->
+  <section id="future">
+    <div class="container">
+      <div class="section-head">
+        <h2>رؤيتنا للمستقبل</h2>
+        <p>توسّع مدروس وتطوير مستمر لخدمة السوق الليبي بأعلى المعايير</p>
+      </div>
+
+      <div class="card">
+        <p>
+          تسعى مجموعة شركات العرفي إلى توسيع نطاق أعمالها من خلال استقطاب أحدث الابتكارات
+          وأفضل المصانع العالمية في مجال الأدوية البيطرية، مع التركيز على ضمان توفر منتجات
+          آمنة وفعّالة تناسب الظروف المحلية.
+        </p>
+        <p>
+          تضع المجموعة في صميم خطتها الاستثمار في الجودة وبناء علاقات طويلة الأمد مع
+          العملاء والأطباء البيطريين، بما يضمن استمرار الثقة وتعزيز الشراكة من أجل تنمية
+          قطاع الثروة الحيوانية في ليبيا.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTACT ====== -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <h2>تواصل معنا</h2>
+        <p>للاستفسار عن المنتجات أو التوكيلات أو فرص التعاون</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-box">
+          <h3 style="margin-top:0; margin-bottom:10px;">بيانات الاتصال</h3>
+          <ul class="contact-list">
+            <li>
+              <span class="label">الهاتف 1:</span>
+              <a href="tel:+218923032936">00218-92-3032936</a>
+            </li>
+            <li>
+              <span class="label">الهاتف 2:</span>
+              <a href="tel:+218913032936">00218-91-3032936</a>
+            </li>
+            <li>
+              <span class="label">البريد الإلكتروني:</span>
+              <a href="mailto:alarfe_companies_group12@yahoo.com">
+                alarfe_companies_group12@yahoo.com
+              </a>
+            </li>
+            <li>
+              <span class="label">العنوان:</span>
+              ليبيا – بنغازي
+            </li>
+          </ul>
+          <p style="margin-top:12px; font-size:13px; color:var(--text-muted);">
+            يمكنكم التواصل معنا للحصول على قائمة المنتجات الكاملة، أو طلب زيارة ميدانية، أو
+            مناقشة فرص شراكة جديدة في السوق الليبي.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0; margin-bottom:8px;">نموذج تواصل سريع (تصميم فقط)</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:0;">
+            يمكن لاحقًا ربط هذا النموذج بنظام بريد إلكتروني أو قاعدة بيانات حسب الحاجة.
+          </p>
+          <form>
+            <div style="margin-bottom:10px;">
+              <label style="font-size:13px;">الاسم الكامل</label>
+              <input type="text" style="width:100%; padding:8px 10px; margin-top:4px; border-radius:10px; border:1px solid #e5e7eb; font-family:inherit; font-size:13px;">
+            </div>
+            <div style="margin-bottom:10px;">
+              <label style="font-size:13px;">البريد الإلكتروني</label>
+              <input type="email" style="width:100%; padding:8px 10px; margin-top:4px; border-radius:10px; border:1px solid #e5e7eb; font-family:inherit; font-size:13px;">
+            </div>
+            <div style="margin-bottom:10px;">
+              <label style="font-size:13px;">الرسالة</label>
+              <textarea rows="3" style="width:100%; padding:8px 10px; margin-top:4px; border-radius:10px; border:1px solid #e5e7eb; font-family:inherit; font-size:13px; resize:vertical;"></textarea>
+            </div>
+            <button type="button" class="btn-primary">
+              <span class="icon">📨</span>
+              إرسال (شكل فقط)
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer>
+    <div class="container">
+      <span>© مجموعة شركات العرفي – شركة القدرة لاستيراد الأدوية البيطرية</span>
+      <span>تصميم تجريبي لموقع تعريفي</span>
+    </div>
+  </footer>
 </body>
 </html>
