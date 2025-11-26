@@ -3,35 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <title>عرض ملف PDF</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- ضبط العرض على شاشة الجوال -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
       background: #fff;
-      font-family: "Tajawal", sans-serif;
+      font-family: "Tajawal", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    /* حاوية المشاهد */
+    .viewer-wrapper {
+      position: fixed;
+      inset: 0;       /* top/right/bottom/left: 0 */
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
 
     .viewer {
       width: 100%;
-      height: 100vh;
+      height: 100%;
       border: none;
+      display: block;
     }
 
-    .fallback {
-      padding: 40px;
-      text-align: center;
+    /* تحسين خاص للجوالات الحديثة (100dvh) */
+    @supports (height: 100dvh) {
+      .viewer-wrapper {
+        height: 100dvh;
+      }
+      .viewer {
+        height: 100dvh;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- غيّر "file.pdf" إلى اسم ملفك -->
-  <iframe class="viewer" src="file.pdf">
-  </iframe>
+  <div class="viewer-wrapper">
+    <!-- غيّر "file.pdf" إلى اسم ملفك أو رابط الـ PDF -->
+    <iframe class="viewer" src="file.pdf"></iframe>
+  </div>
 
 </body>
 </html>
