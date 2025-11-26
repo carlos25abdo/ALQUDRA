@@ -7,13 +7,17 @@
 
   <style>
     :root {
-      --green-main: #009566;
-      --green-dark: #00664a;
-      --bg-light: #f5f7fb;
+      --green-main: #0d9b63;
+      --green-dark: #047047;
+      --green-soft: #e5f7ef;
+      --bg-body: #f4f6fb;
+      --bg-card: #ffffff;
       --text-main: #0f172a;
       --text-muted: #6b7280;
-      --radius: 18px;
-      --shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --shadow-soft: 0 14px 40px rgba(15, 23, 42, 0.15);
+      --shadow-card: 0 10px 25px rgba(15, 23, 42, 0.08);
     }
 
     * {
@@ -24,7 +28,7 @@
       margin: 0;
       padding: 0;
       font-family: "Tajawal", system-ui, -apple-system, "Segoe UI", sans-serif;
-      background: #ffffff;
+      background: var(--bg-body);
       color: var(--text-main);
       scroll-behavior: smooth;
     }
@@ -48,92 +52,9 @@
       margin: 0 auto;
     }
 
-    /* ====== NAVBAR ====== */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 0;
-      gap: 12px;
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-box {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid var(--green-main);
-      display: grid;
-      place-items: center;
-      background: #fff;
-    }
-
-    .logo-box span {
-      font-weight: 800;
-      font-size: 20px;
-      color: var(--green-dark);
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .brand-text strong {
-      font-size: 16px;
-    }
-
-    .brand-text small {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 18px;
-      font-size: 14px;
-    }
-
-    .nav-links a {
-      padding: 6px 10px;
-      border-radius: 999px;
-      color: var(--text-muted);
-    }
-
-    .nav-links a:hover {
-      background: var(--bg-light);
-      color: var(--green-dark);
-    }
-
-    .nav-cta {
-      display: none;
-    }
-
-    @media (min-width: 768px) {
-      .nav-cta {
-        display: inline-flex;
-      }
-    }
-
+    /* ====== GLOBAL UTIL ====== */
     .btn-primary {
-      padding: 8px 18px;
+      padding: 9px 20px;
       border-radius: 999px;
       border: none;
       cursor: pointer;
@@ -143,7 +64,9 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 10px 25px rgba(0, 149, 102, 0.35);
+      box-shadow: 0 10px 28px rgba(4, 112, 71, 0.4);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+      white-space: nowrap;
     }
 
     .btn-primary span.icon {
@@ -151,21 +74,225 @@
       line-height: 1;
     }
 
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(4, 112, 71, 0.5);
+      opacity: 0.95;
+    }
+
+    .btn-outline {
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: var(--text-main);
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-outline span.icon {
+      font-size: 16px;
+    }
+
+    .btn-outline:hover {
+      background: var(--green-soft);
+      border-color: var(--green-main);
+      color: var(--green-dark);
+    }
+
+    /* ====== NAVBAR ====== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(244, 246, 251, 0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      gap: 10px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .logo-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--green-main);
+      display: grid;
+      place-items: center;
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
+
+    .brand-text strong {
+      font-size: 15px;
+      white-space: nowrap;
+    }
+
+    .brand-text small {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* Mobile menu button */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .menu-toggle {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      width: 18px;
+      height: 2px;
+      background: var(--text-main);
+      border-radius: 999px;
+      position: relative;
+    }
+
+    .menu-toggle span::before,
+    .menu-toggle span::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--text-main);
+      right: 0;
+    }
+
+    .menu-toggle span::before {
+      top: -6px;
+    }
+
+    .menu-toggle span::after {
+      bottom: -6px;
+    }
+
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 0 8px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover {
+      background: var(--green-soft);
+      color: var(--green-dark);
+    }
+
+    .nav-cta-desktop {
+      display: none;
+    }
+
+    /* desktop nav */
+    @media (min-width: 880px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .nav {
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0;
+        gap: 8px 16px;
+      }
+
+      .nav-cta-desktop {
+        display: inline-flex;
+      }
+    }
+
+    /* Mobile menu visible */
+    .nav-links.open {
+      display: flex;
+    }
+
     /* ====== HERO ====== */
     .hero {
-      background: radial-gradient(circle at top left, #e0f6ef, #ffffff 48%, #f5f7fb);
-      padding: 26px 0 40px;
+      background:
+        radial-gradient(circle at top right, rgba(13, 155, 99, 0.16), transparent 52%),
+        radial-gradient(circle at top left, rgba(4, 112, 71, 0.14), transparent 60%),
+        #f0f4fb;
+      padding: 20px 0 36px;
+      box-shadow: 0 14px 60px rgba(15, 23, 42, 0.18);
+    }
+
+    .hero-inner {
+      border-radius: 26px;
+      padding: 18px 16px 24px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(230, 244, 238, 0.96));
+      box-shadow: var(--shadow-soft);
     }
 
     .hero-grid {
       display: grid;
-      gap: 26px;
+      gap: 22px;
       align-items: center;
     }
 
     @media (min-width: 900px) {
+      .hero-inner {
+        padding: 24px 26px 30px;
+      }
       .hero-grid {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
       }
     }
 
@@ -173,11 +300,11 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 4px 10px;
+      padding: 4px 12px;
       border-radius: 999px;
-      background: rgba(0, 149, 102, 0.08);
+      background: rgba(4, 112, 71, 0.08);
       color: var(--green-dark);
-      font-size: 13px;
+      font-size: 12px;
       margin-bottom: 6px;
     }
 
@@ -186,25 +313,26 @@
       height: 9px;
       border-radius: 50%;
       background: var(--green-main);
+      box-shadow: 0 0 0 5px rgba(13, 155, 99, 0.18);
     }
 
     .hero h1 {
-      font-size: clamp(24px, 4vw, 32px);
-      margin: 0 0 10px;
+      font-size: clamp(22px, 4.1vw, 32px);
+      margin: 0 0 8px;
     }
 
     .hero p {
-      margin: 0 0 14px;
+      margin: 0 0 10px;
       color: var(--text-muted);
-      font-size: 15px;
+      font-size: 14px;
     }
 
     .hero-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 10px;
-      font-size: 13px;
+      gap: 10px 18px;
+      margin-top: 8px;
+      font-size: 12px;
       color: var(--text-muted);
     }
 
@@ -215,41 +343,36 @@
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .btn-outline {
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      background: #fff;
-      font-size: 14px;
-      display: inline-flex;
-      align-items: center;
       gap: 8px;
-      cursor: pointer;
-      color: var(--text-main);
-    }
-
-    .btn-outline span.icon {
-      font-size: 16px;
+      margin-top: 16px;
     }
 
     .hero-image-card {
-      border-radius: 26px;
+      border-radius: 24px;
       overflow: hidden;
       background: #000;
-      box-shadow: var(--shadow);
       position: relative;
-      min-height: 220px;
+      min-height: 210px;
+      box-shadow: var(--shadow-soft);
+      isolation: isolate;
     }
 
     .hero-image-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.9;
+      opacity: 0.95;
+      transform: scale(1.02);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.4),
+        rgba(0, 0, 0, 0.0)
+      );
     }
 
     .hero-tag {
@@ -258,53 +381,46 @@
       right: 14px;
       background: rgba(255, 255, 255, 0.96);
       border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 12px;
+      padding: 5px 11px;
+      font-size: 11px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
     }
 
     .hero-tag span.dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--green-main);
     }
 
     /* ====== SECTIONS ====== */
     section {
-      padding: 40px 0;
-    }
-
-    section:nth-of-type(odd) {
-      background: #ffffff;
-    }
-
-    section:nth-of-type(even) {
-      background: var(--bg-light);
+      padding: 34px 0;
     }
 
     .section-head {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       text-align: center;
     }
 
     .section-head h2 {
-      margin: 0 0 6px;
-      font-size: 22px;
+      margin: 0 0 4px;
+      font-size: 20px;
     }
 
     .section-head p {
       margin: 0;
       color: var(--text-muted);
-      font-size: 14px;
+      font-size: 13px;
     }
 
     /* About */
     .about-grid {
       display: grid;
-      gap: 24px;
+      gap: 18px;
     }
 
     @media (min-width: 900px) {
@@ -314,16 +430,16 @@
     }
 
     .card {
-      background: #ffffff;
-      border-radius: var(--radius);
-      padding: 20px 18px;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px;
+      box-shadow: var(--shadow-card);
     }
 
     .card h3 {
       margin-top: 0;
-      margin-bottom: 8px;
-      font-size: 18px;
+      margin-bottom: 6px;
+      font-size: 17px;
     }
 
     .card p {
@@ -335,22 +451,23 @@
     .pill-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
       margin-top: 8px;
     }
 
     .pill {
-      padding: 4px 10px;
+      padding: 4px 9px;
       border-radius: 999px;
-      background: rgba(0, 149, 102, 0.08);
-      font-size: 12px;
+      background: rgba(13, 155, 99, 0.08);
+      font-size: 11px;
       color: var(--green-dark);
+      border: 1px solid rgba(13, 155, 99, 0.25);
     }
 
     /* Partners grid */
     .partners-grid {
       display: grid;
-      gap: 16px;
+      gap: 14px;
     }
 
     @media (min-width: 768px) {
@@ -366,31 +483,33 @@
     }
 
     .partner-card {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 16px 14px;
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 14px 12px;
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
       font-size: 13px;
+      border-inline-start: 3px solid rgba(13, 155, 99, 0.7);
     }
 
     .partner-name {
       font-weight: 700;
       color: var(--green-dark);
-      margin-bottom: 2px;
+      margin-bottom: 1px;
+      font-size: 14px;
     }
 
     .partner-country {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
     }
 
     /* Activities */
     .activities-grid {
       display: grid;
-      gap: 20px;
+      gap: 16px;
     }
 
     @media (min-width: 900px) {
@@ -400,43 +519,45 @@
     }
 
     .activity-card {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 18px 16px;
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
       box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
+      border-top: 3px solid rgba(13, 155, 99, 0.75);
     }
 
     .activity-card h3 {
-      margin: 0 0 8px;
-      font-size: 17px;
+      margin: 0 0 6px;
+      font-size: 15px;
       color: var(--text-main);
     }
 
     /* Board */
     .board-grid {
       display: grid;
-      gap: 16px;
-      margin-top: 10px;
+      gap: 12px;
+      margin-top: 8px;
     }
 
     @media (min-width: 640px) {
       .board-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
     .member-card {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 14px 12px;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
-      font-size: 14px;
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 10px 9px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+      font-size: 13px;
+      border-inline-start: 3px solid rgba(4, 112, 71, 0.8);
     }
 
     .member-role {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
       margin-top: 2px;
     }
@@ -444,12 +565,12 @@
     /* Contact */
     .contact-grid {
       display: grid;
-      gap: 20px;
+      gap: 18px;
     }
 
     @media (min-width: 768px) {
       .contact-grid {
-        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
       }
     }
 
@@ -457,12 +578,12 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
     }
 
     .contact-list li {
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     .contact-list span.label {
@@ -470,28 +591,65 @@
       min-width: 80px;
       color: var(--text-main);
       font-weight: 600;
+      font-size: 12px;
     }
 
     .contact-box {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 18px 16px;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.07);
-      font-size: 14px;
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 16px 15px;
+      box-shadow: var(--shadow-card);
+      font-size: 13px;
+      border-top: 3px solid rgba(13, 155, 99, 0.8);
+    }
+
+    .contact-box h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    /* Inputs */
+    input, textarea {
+      width: 100%;
+      padding: 7px 9px;
+      margin-top: 3px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      background: #ffffff;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--green-main);
+      box-shadow: 0 0 0 1px rgba(13, 155, 99, 0.35);
+      background: #f9fffc;
+    }
+
+    label {
+      font-size: 12px;
+      color: var(--text-main);
+    }
+
+    textarea {
+      resize: vertical;
     }
 
     footer {
-      padding: 16px 0 22px;
+      padding: 14px 0 18px;
       background: #020617;
       color: #9ca3af;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     footer .container {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 8px;
+      gap: 6px;
       align-items: center;
     }
   </style>
@@ -500,19 +658,32 @@
 
   <!-- ====== NAVBAR ====== -->
   <header>
-    <div class="container nav">
-      <div class="nav-left">
-        <div class="logo-box">
-  <img src="4.jpg" alt="شعار الشركة" style="width: 100%; height: 100%; object-fit: cover;">
-</div>
+    <div class="container">
+      <div class="nav">
+        <div class="nav-left">
+          <div class="logo-box">
+            <img src="4.jpg" alt="شعار الشركة">
+          </div>
+          <div class="brand-text">
+            <strong>مجموعة شركات العرفي</strong>
+            <small>شركة القدرة لاستيراد الأدوية البيطرية</small>
+          </div>
+        </div>
 
-        <div class="brand-text">
-          <strong>مجموعة شركات العرفي</strong>
-          <small>شركة القدرة لاستيراد الأدوية البيطرية</small>
+        <div class="nav-right">
+          <button class="btn-primary nav-cta-desktop" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+            <span class="icon">✉️</span>
+            تواصل معنا
+          </button>
+
+          <button class="menu-toggle" onclick="toggleMenu()" aria-label="القائمة">
+            <span></span>
+          </button>
         </div>
       </div>
 
-      <nav class="nav-links">
+      <!-- روابط القائمة (موبايل + ديسكتوب) -->
+      <nav id="nav-links" class="nav-links">
         <a href="#about">من نحن</a>
         <a href="#partners">شركاؤنا</a>
         <a href="#activities">الأنشطة</a>
@@ -520,52 +691,49 @@
         <a href="#future">رؤيتنا</a>
         <a href="#contact">تواصل</a>
       </nav>
-
-      <a href="#contact" class="nav-cta">
-        <button class="btn-primary">
-          <span class="icon">✉️</span>
-          تواصل معنا
-        </button>
-      </a>
     </div>
   </header>
 
   <!-- ====== HERO ====== -->
   <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <div class="badge">
-          <span class="dot"></span>
-          <span>أكثر من 30 سنة خبرة في السوق الليبي</span>
-        </div>
-        <h1>ريادة في استيراد وتوزيع الأدوية البيطرية في ليبيا</h1>
-        <p>
-          تأسست مجموعة شركات العرفي سنة 1995، ومن خلال شركة القدرة استطاعت أن تكون من
-          أبرز الشركات الليبية في مجال استيراد وتوزيع الأدوية البيطرية، مع التزام دائم
-          بمعايير الجودة والاعتمادية.
-        </p>
-        <div class="hero-meta">
-          <span><strong>التخصص:</strong> أدوية ومستلزمات بيطرية</span>
-          <span><strong>المقر:</strong> ليبيا – بنغازي</span>
-        </div>
-        <div class="hero-actions">
-          <a href="file.pdf" target="_blank" class="btn-primary">
-            <span class="icon">📄</span>
-            تحميل البروفايل PDF
-          </a>
-          <a href="#partners" class="btn-outline">
-            <span class="icon">🤝</span>
-            التوكيلات والشركات العالمية
-          </a>
-        </div>
-      </div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-grid">
+          <div>
+            <div class="badge">
+              <span class="dot"></span>
+              <span>أكثر من 30 سنة خبرة في السوق الليبي</span>
+            </div>
+            <h1>ريادة في استيراد وتوزيع الأدوية البيطرية في ليبيا</h1>
+            <p>
+              تأسست مجموعة شركات العرفي سنة 1995، ومن خلال شركة القدرة استطاعت أن تكون من
+              أبرز الشركات الليبية في مجال استيراد وتوزيع الأدوية البيطرية، مع التزام دائم
+              بمعايير الجودة والاعتمادية.
+            </p>
+            <div class="hero-meta">
+              <span><strong>التخصص:</strong> أدوية ومستلزمات بيطرية</span>
+              <span><strong>المقر:</strong> ليبيا – بنغازي</span>
+            </div>
+            <div class="hero-actions">
+              <a href="file.pdf" target="_blank" class="btn-primary">
+                <span class="icon">📄</span>
+                تحميل البروفايل PDF
+              </a>
+              <a href="#partners" class="btn-outline">
+                <span class="icon">🤝</span>
+                التوكيلات والشركات العالمية
+              </a>
+            </div>
+          </div>
 
-      <div class="hero-image-card">
-        <!-- استبدل الصورة بصورة حقيقية لمقر الشركة -->
-        <img src="2.jpg" alt="مقر مجموعة شركات العرفي">
-        <div class="hero-tag">
-          <span class="dot"></span>
-          <span>ثقة الأطباء البيطريين في ليبيا</span>
+          <div class="hero-image-card">
+            <img src="2.jpg" alt="مقر مجموعة شركات العرفي">
+            <div class="hero-overlay"></div>
+            <div class="hero-tag">
+              <span class="dot"></span>
+              <span>ثقة الأطباء البيطريين في ليبيا</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -602,7 +770,7 @@
         <div class="card">
           <h3>مجالات العمل الرئيسية</h3>
           <p>تغطي منتجات الشركة احتياجات قطاعات متعددة من الثروة الحيوانية:</p>
-          <ul style="margin: 6px 0 0; padding-right: 18px; font-size: 14px; color: var(--text-muted);">
+          <ul style="margin: 6px 0 0; padding-right: 18px; font-size: 13px; color: var(--text-muted);">
             <li>الأبقار والأغنام والجمال والماشية.</li>
             <li>الدواجن ومزارع الإنتاج الحيواني المكثف.</li>
             <li>الحيوانات الأليفة مثل الكلاب والقطط.</li>
@@ -718,7 +886,7 @@
       </div>
 
       <div class="card">
-        <p style="margin:0 0 10px;">
+        <p style="margin:0 0 8px; font-size:13px; color:var(--text-muted);">
           يقود المجموعة مجلس إدارة يجمع بين الخبرة العلمية والعملية في قطاع الصحة الحيوانية،
           ويشرف على رسم السياسات العامة وضمان استمرارية التطوير والتوسع في السوق الليبي
           والإقليمي.
@@ -753,12 +921,12 @@
       </div>
 
       <div class="card">
-        <p>
+        <p style="font-size:13px; color:var(--text-muted); margin-top:0;">
           تسعى مجموعة شركات العرفي إلى توسيع نطاق أعمالها من خلال استقطاب أحدث الابتكارات
           وأفضل المصانع العالمية في مجال الأدوية البيطرية، مع التركيز على ضمان توفر منتجات
           آمنة وفعّالة تناسب الظروف المحلية.
         </p>
-        <p>
+        <p style="font-size:13px; color:var(--text-muted);">
           تضع المجموعة في صميم خطتها الاستثمار في الجودة وبناء علاقات طويلة الأمد مع
           العملاء والأطباء البيطريين، بما يضمن استمرار الثقة وتعزيز الشراكة من أجل تنمية
           قطاع الثروة الحيوانية في ليبيا.
@@ -777,7 +945,7 @@
 
       <div class="contact-grid">
         <div class="contact-box">
-          <h3 style="margin-top:0; margin-bottom:10px;">بيانات الاتصال</h3>
+          <h3>بيانات الاتصال</h3>
           <ul class="contact-list">
             <li>
               <span class="label">الهاتف 1:</span>
@@ -798,29 +966,29 @@
               ليبيا – بنغازي
             </li>
           </ul>
-          <p style="margin-top:12px; font-size:13px; color:var(--text-muted);">
+          <p style="margin-top:10px; font-size:12px; color:var(--text-muted);">
             يمكنكم التواصل معنا للحصول على قائمة المنتجات الكاملة، أو طلب زيارة ميدانية، أو
             مناقشة فرص شراكة جديدة في السوق الليبي.
           </p>
         </div>
 
         <div class="card">
-          <h3 style="margin-top:0; margin-bottom:8px;">نموذج تواصل سريع (تصميم فقط)</h3>
-          <p style="font-size:13px; color:var(--text-muted); margin-top:0;">
+          <h3 style="margin-top:0; margin-bottom:6px; font-size:15px;">نموذج تواصل سريع (تصميم فقط)</h3>
+          <p style="font-size:12px; color:var(--text-muted); margin-top:0;">
             يمكن لاحقًا ربط هذا النموذج بنظام بريد إلكتروني أو قاعدة بيانات حسب الحاجة.
           </p>
           <form>
-            <div style="margin-bottom:10px;">
-              <label style="font-size:13px;">الاسم الكامل</label>
-              <input type="text" style="width:100%; padding:8px 10px; margin-top:4px; border-radius:10px; border:1px solid #e5e7eb; font-family:inherit; font-size:13px;">
+            <div style="margin-bottom:8px;">
+              <label>الاسم الكامل</label>
+              <input type="text" placeholder="اكتب اسمك هنا">
+            </div>
+            <div style="margin-bottom:8px;">
+              <label>البريد الإلكتروني</label>
+              <input type="email" placeholder="example@mail.com">
             </div>
             <div style="margin-bottom:10px;">
-              <label style="font-size:13px;">البريد الإلكتروني</label>
-              <input type="email" style="width:100%; padding:8px 10px; margin-top:4px; border-radius:10px; border:1px solid #e5e7eb; font-family:inherit; font-size:13px;">
-            </div>
-            <div style="margin-bottom:10px;">
-              <label style="font-size:13px;">الرسالة</label>
-              <textarea rows="3" style="width:100%; padding:8px 10px; margin-top:4px; border-radius:10px; border:1px solid #e5e7eb; font-family:inherit; font-size:13px; resize:vertical;"></textarea>
+              <label>الرسالة</label>
+              <textarea rows="3" placeholder="كيف يمكننا مساعدتك؟"></textarea>
             </div>
             <button type="button" class="btn-primary">
               <span class="icon">📨</span>
@@ -839,5 +1007,12 @@
       <span>تصميم تجريبي لموقع تعريفي</span>
     </div>
   </footer>
+
+  <script>
+    function toggleMenu() {
+      var links = document.getElementById("nav-links");
+      links.classList.toggle("open");
+    }
+  </script>
 </body>
 </html>
